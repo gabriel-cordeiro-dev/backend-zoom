@@ -34,7 +34,7 @@ const createItem = async (req, res) => {
 
           console.log('Item created successfully.');
 
-          return res.status(201).json({ id, ano, capacidade, mes, category });
+          return res.status(201).json({ id, ano, capacidade, mes, type });
         } catch (error) {
           console.error('Database Error:', error);
           return res.status(500).json({ error: 'Error saving item in the database.' });
