@@ -5,7 +5,7 @@ const createItem = async (req, res) => {
   try {
     const { ano, capacidade, mes, type } = req.body;
 
-    if (!ano || !capacidade || !mes || !category) {
+    if (!ano || !capacidade || !mes || !type) {
       return res.status(400).json({ error: 'Please fill all fields.' });
     }
 
