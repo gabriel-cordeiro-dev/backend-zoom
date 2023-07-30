@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const createItem = async (req, res) => {
   try {
-    const { ano, capacidade, mes, category } = req.body;
+    const { ano, capacidade, mes, type } = req.body;
 
     if (!ano || !capacidade || !mes || !category) {
       return res.status(400).json({ error: 'Please fill all fields.' });
@@ -17,8 +17,8 @@ const createItem = async (req, res) => {
         ano,
         capacidade,
         mes,
-        category
-      ) VALUES ('${id}', '${ano}', '${capacidade}', '${mes}', '${category}')
+        type
+      ) VALUES ('${id}', '${ano}', '${capacidade}', '${mes}', '${type}')
     `;
 
     // Establish the database connection using connectToDatabase function
@@ -96,9 +96,9 @@ const updateItemById = async (req, res) => {
 try {
     const id = req.params.id;
 
-    const { ano, capacidade, mes, category } = req.body;
+    const { ano, capacidade, mes, type } = req.body;
 
-    const query = `UPDATE bronze.capacidade_producao SET ano = '${ano}', capacidade = '${capacidade}', mes = '${mes}', category = '${category}' WHERE id = '${id}'`;
+    const query = `UPDATE bronze.capacidade_producao SET ano = '${ano}', capacidade = '${capacidade}', mes = '${mes}', type = '${type}' WHERE id = '${id}'`;
     const client = await connectToDatabase();
     const session = await client.openSession();
     const queryOperation = await session.executeStatement(query, { runAsync: true });
