@@ -37,4 +37,19 @@ const testQuery = async () => {
   }
 };
 
-module.exports = { connectToDatabase, testQuery };
+const findUserByEmail = async (email) => {
+  const query = `SELECT * FROM bronze.logins WHERE email = '${email}'`;
+  try {
+    const session = await client.openSession();
+    const queryOperation = await session.executeStatement(query, { runAsync: true });
+    const result = await queryOperation.fetchAll();
+    await session.close();
+
+    return result && result.length > 0 ? result[0] : null;
+  } catch (error) {
+    console.error('Error fetching user by email:', error);
+    throw error;
+  }
+};
+
+module.exports = { connectToDatabase, testQuery, findUserByEmail };
