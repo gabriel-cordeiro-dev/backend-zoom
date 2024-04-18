@@ -1,16 +1,18 @@
 const express = require('express');
 const routes = require('./routes/routes');
 const { connectToDatabase } = require('./config/db');
-const cors = require('cors')
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors())
+// Configuração do CORS para permitir todas as origens
+app.use(cors({
+  origin: '*'
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
 
 app.use('/api', routes);
 
